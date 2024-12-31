@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year</title>
+    <style>
+        body {
+            background-color: #2C3E50; /* Dark background color */
+            color: #ECF0F1; /* Light font color */
+            text-align: center;
+            padding-top: 20%;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow: hidden; /* Prevent scrollbar from appearing */
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5em;
+            color: rgba(255, 255, 255, 0.1); /* Light color with transparency */
+            animation: backgroundAnimation 10s linear infinite;
+            z-index: -1; /* Make sure it stays in the background */
+        }
+
+        @keyframes backgroundAnimation {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .message, .newyear {
+            font-size: 2.5em;
+            opacity: 0;
+            display: none;
+        }
+
+        .header {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 3s forwards 1.5s; /* Animation starts after 1.5 seconds */
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .firework {
+            position: absolute;
+            width: 2px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.7);
+            transform-origin: bottom center;
+            animation: fireworkAnim 1s ease-out infinite;
+        }
+
+        @keyframes fireworkAnim {
+            0% {
+                transform: scaleY(0.1);
+                opacity: 1;
+            }
+            100% {
+                transform: scaleY(1);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: fall 5s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 1em;
+            opacity: 0;
+            animation: fadeInUp 3s forwards 6s; /* Animation starts after 6 seconds */
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation">Happy New Year!</div>
+    <div class="header">Welcome to Our Celebration</div>
+    <div class="message">Hi to everyone!</div>
+    <div class="newyear">Happy New Year!</div>
+    <div class="fireworks"></div>
+    <div class="confetti"></div>
+    <div class="footer">Made by Taha Ayya</div> 
+
+    <script>
+        function showMessages() {
+            document.querySelector('.message').style.display = 'block';
+            document.querySelector('.newyear').style.display = 'block';
+            setTimeout(() => {
+                document.querySelector('.message').style.opacity = '1';
+                document.querySelector('.message').style.animation = 'fadeInUp 3s forwards';
+                setTimeout(() => {
+                    document.querySelector('.newyear').style.opacity = '1';
+                    document.querySelector('.newyear').style.animation = 'fadeInUp 3s forwards';
+                }, 3000);
+            }, 500);
+            launchFireworks();
+            launchConfetti();
+        }
+
+        function launchFireworks() {
+            const fireworksContainer = document.querySelector('.fireworks');
+            for (let i = 0; i < 10; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = Math.random() * 100 + 'vw';
+                firework.style.animationDelay = Math.random() * 1 + 's';
+                fireworksContainer.appendChild(firework);
+            }
+        }
+
+        function launchConfetti() {
+            const confettiContainer = document.querySelector('.confetti');
+            for (let i = 0; i < 50; i++) {
+                const confetto = document.createElement('div');
+                confetto.className = 'confetti';
+                confetto.style.left = Math.random() * 100 + 'vw';
+                confetto.style.backgroundColor = `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 0.7)`;
+                confetto.style.animationDelay = Math.random() * 5 + 's';
+                confettiContainer.appendChild(confetto);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', showMessages);
+    </script>
+</body>
+</html>
